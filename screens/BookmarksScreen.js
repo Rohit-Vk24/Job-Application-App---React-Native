@@ -1,15 +1,18 @@
 // screens/BookmarksScreen.js
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useBookmarks } from '../context/BookmarkContext';
 
 const BookmarksScreen = ({ navigation }) => {
   const { bookmarks, removeBookmark } = useBookmarks();
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       {bookmarks.length === 0 ? (
-        <Text>No bookmarks yet.</Text>
+        <View style={styles.noBookmarksContainer}>
+          <Text style={styles.noBookmarksText}>You have no bookmarks yet.</Text>
+          <Text style={styles.noBookmarksSubText}>Start adding jobs to your bookmarks to see them here.</Text>
+        </View>
       ) : (
         <FlatList
           data={bookmarks}
@@ -50,5 +53,25 @@ const BookmarksScreen = ({ navigation }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  noBookmarksContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  noBookmarksText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#555',
+    marginBottom: 10,
+  },
+  noBookmarksSubText: {
+    fontSize: 16,
+    color: '#777',
+    textAlign: 'center',
+  },
+});
 
 export default BookmarksScreen;

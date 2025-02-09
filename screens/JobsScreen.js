@@ -73,6 +73,8 @@ const JobsScreen = ({ navigation }) => {
 
   const isBookmarked = (job) => bookmarks.some(bookmarkedJob => bookmarkedJob.id === job.id);
 
+  const hasValidDetails = (job) => job && (job.title || job.primary_details || job.whatsapp_no || job.views || job.shares);
+
   return (
     <View style={{ flex: 1, backgroundColor: '#e9ecef' }}>
       {loading ? <ActivityIndicator size="large" /> : (
@@ -80,7 +82,7 @@ const JobsScreen = ({ navigation }) => {
           <Text style={{ color: 'red', textAlign: 'center', margin: 20 }}>{error}</Text>
         ) : (
           <FlatList
-            data={jobs}
+            data={jobs.filter(hasValidDetails)}
             keyExtractor={(item, index) => `${item.id}-${index}`}
             onEndReached={() => {
               if (jobs.length > 0) {
@@ -103,17 +105,17 @@ const JobsScreen = ({ navigation }) => {
                   elevation: 5,
                 }}>
                   <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#007BFF', marginBottom: 10 }}>{item.title}</Text>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
-                    <Text style={{ fontSize: 14, color: '#555' }}>Location:</Text>
-                    <Text style={{ fontSize: 14, color: '#333' }}>{item.primary_details ? item.primary_details.Place : 'N/A'}</Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 5 }}>
+                    <Text style={{ fontSize: 14, color: '#555', width: '30%' }}>Location:</Text>
+                    <Text style={{ fontSize: 14, color: '#333', width: '70%' }}>{item.primary_details ? item.primary_details.Place : 'N/A'}</Text>
                   </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 5 }}>
-                    <Text style={{ fontSize: 14, color: '#555' }}>Salary:</Text>
-                    <Text style={{ fontSize: 14, color: '#333' }}>{item.primary_details ? item.primary_details.Salary : 'N/A'}</Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'flex-start', marginBottom: 5 }}>
+                    <Text style={{ fontSize: 14, color: '#555', width: '30%' }}>Salary:</Text>
+                    <Text style={{ fontSize: 14, color: '#333', width: '70%' }}>{item.primary_details ? item.primary_details.Salary : 'N/A'}</Text>
                   </View>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ fontSize: 14, color: '#555' }}>Phone:</Text>
-                    <Text style={{ fontSize: 14, color: '#333' }}>{item.whatsapp_no || 'N/A'}</Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+                    <Text style={{ fontSize: 14, color: '#555', width: '30%' }}>Phone:</Text>
+                    <Text style={{ fontSize: 14, color: '#333', width: '70%' }}>{item.whatsapp_no || 'N/A'}</Text>
                   </View>
                 </View>
               </TouchableOpacity>
