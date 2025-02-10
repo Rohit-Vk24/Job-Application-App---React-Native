@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, ScrollView, Alert, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Button, ScrollView, Alert, StyleSheet, Image } from 'react-native';
 import { useBookmarks } from '../context/BookmarkContext';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const JobDetailsScreen = ({ route }) => {
   const { job } = route.params;
@@ -34,146 +35,88 @@ const JobDetailsScreen = ({ route }) => {
   const hasValidDetails = job && (job.title || job.primary_details || job.whatsapp_no || job.views || job.shares);
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: '#f4f4f8', padding: 20 }}>
-      {hasValidDetails ? (
-        <View style={styles.card}>
+    <ScrollView style={styles.container}>
+      <View style={styles.card}>
+        <View style={styles.header}>
+          <Image source={{ uri: 'https://via.placeholder.com/100' }} style={styles.logo} />
           <Text style={styles.title}>{job.title}</Text>
+          <Text style={styles.companyName}>{job.company_name}</Text>
+        </View>
+        <View style={styles.detailsSection}>
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Title:</Text>
-            <Text style={styles.detailValue}>{job.title}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Vacancy:</Text>
-            <Text style={styles.detailValue}>{job.job_tags ? job.job_tags[0].value : 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Salary:</Text>
-            <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Salary : 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Experience:</Text>
-            <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Experience : 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Address:</Text>
+            <MaterialIcons name="location-on" size={20} color="#007BFF" />
             <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Place : 'N/A'}</Text>
           </View>
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Job Type:</Text>
-            <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Job_Type : 'N/A'}</Text>
+            <MaterialIcons name="attach-money" size={20} color="#007BFF" />
+            <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Salary : 'N/A'}</Text>
           </View>
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Qualification:</Text>
-            <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Qualification : 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Contact:</Text>
+            <MaterialIcons name="phone" size={20} color="#007BFF" />
             <Text style={styles.detailValue}>{job.whatsapp_no || 'N/A'}</Text>
           </View>
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Views:</Text>
-            <Text style={styles.detailValue}>{job.views}</Text>
+            <MaterialIcons name="work" size={20} color="#007BFF" />
+            <Text style={styles.detailValue}>{job.primary_details ? job.primary_details.Job_Type : 'N/A'}</Text>
           </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Shares:</Text>
-            <Text style={styles.detailValue}>{job.shares}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>WhatsApp:</Text>
-            <Text style={styles.detailValue}>{job.whatsapp_no}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Other Details:</Text>
-            <Text style={styles.detailValue}>{job.other_details || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Job Category:</Text>
-            <Text style={styles.detailValue}>{job.job_category || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Openings:</Text>
-            <Text style={styles.detailValue}>{job.openings_count || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Job Role:</Text>
-            <Text style={styles.detailValue}>{job.job_role || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Job Hours:</Text>
-            <Text style={styles.detailValue}>{job.job_hours || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Premium Till:</Text>
-            <Text style={styles.detailValue}>{job.premium_till || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Created On:</Text>
-            <Text style={styles.detailValue}>{job.created_on || 'N/A'}</Text>
-          </View>
-          <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>Expire On:</Text>
-            <Text style={styles.detailValue}>{job.expire_on || 'N/A'}</Text>
-          </View>
-          <TouchableOpacity style={styles.callButton} onPress={handleCallPress}>
-            <Text style={styles.callButtonText}>Call Now</Text>
-            <Icon name="call" size={20} color="white" style={{ marginLeft: 10 }} />
-          </TouchableOpacity>
-          <View style={{ marginVertical: 10 }} />
-          <Button title={isBookmarked ? 'Remove Bookmark' : 'Bookmark'} onPress={toggleBookmark} />
         </View>
-      ) : (
-        <Text style={styles.noDetailsText}>No job details available.</Text>
-      )}
+      </View>
+      <Button title={isBookmarked ? 'Remove Bookmark' : 'Bookmark'} onPress={toggleBookmark} />
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f4f4f8',
+  },
   card: {
+    margin: 20,
+    borderRadius: 15,
     backgroundColor: '#fff',
-    borderRadius: 10,
-    padding: 20,
-    marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
-    shadowRadius: 5,
+    shadowRadius: 6,
     elevation: 3,
+    overflow: 'hidden',
+  },
+  header: {
+    alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f4f4f8',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  logo: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 10,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
-    marginBottom: 15,
+    marginBottom: 5,
+  },
+  companyName: {
+    fontSize: 18,
+    color: '#777',
+  },
+  detailsSection: {
+    padding: 20,
   },
   detailRow: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginBottom: 10,
-  },
-  detailLabel: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#555',
-    width: '40%',
+    alignItems: 'center',
+    marginBottom: 15,
   },
   detailValue: {
     fontSize: 16,
-    color: '#777',
-    width: '60%',
-  },
-  callButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 5,
-  },
-  callButtonText: {
-    color: 'white',
-    marginLeft: 10,
-    fontSize: 16,
+    color: '#555',
+    marginLeft: 8,
   },
   noDetailsText: {
     fontSize: 18,

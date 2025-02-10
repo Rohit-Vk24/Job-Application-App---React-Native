@@ -33,7 +33,7 @@ export default function App() {
             },
           })}
         >
-          <Tab.Screen name="JobsStack" component={JobsStack} options={{ title: 'Jobs Listings' }} />
+          <Tab.Screen name="JobsStack" component={JobsStack} options={{ title: 'Jobs Portal' }} />
           <Tab.Screen name="Bookmarks" component={BookmarksScreen} />
         </Tab.Navigator>
       </NavigationContainer>
