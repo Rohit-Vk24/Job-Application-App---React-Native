@@ -33,7 +33,7 @@ This is a React Native application designed to help users browse and bookmark jo
 
 3. **Run the App**:
    ```bash
-   expo start
+   npx expo start
    ```
    Use the Expo Go app on your mobile device or an emulator to view the app.
 

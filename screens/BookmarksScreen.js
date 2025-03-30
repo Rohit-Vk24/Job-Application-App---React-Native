@@ -27,11 +27,11 @@ const BookmarksScreen = ({ navigation }) => {
               <View style={styles.card}>
                 <Text style={styles.jobTitle}>{item.title}</Text>
                 <View style={styles.detailRow}>
-                  <MaterialIcons name="location-on" size={20} color="#007BFF" />
+                  <MaterialIcons name="location-on" size={20} color="purple" />
                   <Text style={styles.detailValue}>{item.primary_details ? item.primary_details.Place : 'N/A'}</Text>
                 </View>
                 <View style={styles.detailRow}>
-                  <MaterialIcons name="attach-money" size={20} color="#007BFF" />
+                  <MaterialIcons name="attach-money" size={20} color="purple" />
                   <Text style={styles.detailValue}>{item.primary_details ? item.primary_details.Salary : 'N/A'}</Text>
                 </View>
                 <TouchableOpacity onPress={() => removeBookmark(item.id)} style={styles.removeButton}>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#333',
+    color: 'black',
     marginLeft: 10,
   },
   card: {
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   jobTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: 'black',
     marginBottom: 10,
   },
   detailRow: {
@@ -91,15 +91,25 @@ const styles = StyleSheet.create({
   },
   detailValue: {
     fontSize: 16,
-    color: '#555',
+    color: 'black',
     marginLeft: 8,
   },
   removeButton: {
     marginTop: 10,
     alignSelf: 'flex-end',
+    backgroundColor: 'red',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 5,
   },
   removeButtonText: {
-    color: 'red',
+    color: 'white',
     fontSize: 16,
   },
   noBookmarksContainer: {
@@ -111,12 +121,12 @@ const styles = StyleSheet.create({
   noBookmarksText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#555',
+    color: 'black',
     marginBottom: 10,
   },
   noBookmarksSubText: {
     fontSize: 16,
-    color: '#777',
+    color: 'black',
     textAlign: 'center',
   },
 });

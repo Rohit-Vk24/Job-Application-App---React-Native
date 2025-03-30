@@ -1,10 +1,29 @@
 // screens/JobsScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, Button, StyleSheet, Image, Animated } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useBookmarks } from '../context/BookmarkContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from '@expo/vector-icons';
+
+// Initialize animated values
+const cardScale = new Animated.Value(1);
+
+// Function to animate card press
+const animateCardPress = () => {
+  Animated.sequence([
+    Animated.timing(cardScale, {
+      toValue: 0.95,
+      duration: 100,
+      useNativeDriver: true,
+    }),
+    Animated.timing(cardScale, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: true,
+    }),
+  ]).start();
+};
 
 const JobsScreen = ({ navigation }) => {
   const { bookmarks, addBookmark, removeBookmark } = useBookmarks();
@@ -84,6 +103,14 @@ const JobsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <LinearGradient
+          colors={["#4c669f", "#3b5998", "#192f6a"]}
+          style={styles.headerBackground}
+        >
+          <Text style={styles.headerTitle}>Job Listings</Text>
+        </LinearGradient>
+      </View>
       {loading ? (
         <ActivityIndicator size="large" color="#007BFF" />
       ) : error ? (
@@ -99,9 +126,9 @@ const JobsScreen = ({ navigation }) => {
           }}
           onEndReachedThreshold={0.5}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate('JobDetails', { job: item })}>
-              <View style={styles.card}>
-                <Image source={{ uri: 'https://via.placeholder.com/300x150' }} style={styles.image} />
+            <TouchableOpacity onPress={() => { animateCardPress(); navigation.navigate('JobDetails', { job: item }); }}>
+              <Animated.View style={[styles.card, { transform: [{ scale: cardScale }] }]}>
+                <Image source={{ uri: item.creatives && item.creatives[0] ? item.creatives[0].thumb_url : 'https://via.placeholder.com/300x150' }} style={styles.image} />
                 <View style={styles.cardContent}>
                   <Text style={styles.jobTitle}>{item.title}</Text>
                   <View style={styles.detailRow}>
@@ -113,11 +140,15 @@ const JobsScreen = ({ navigation }) => {
                     <Text style={styles.detailValue}>{item.primary_details ? item.primary_details.Salary : 'N/A'}</Text>
                   </View>
                   <View style={styles.detailRow}>
-                    <MaterialIcons name="phone" size={20} color="#007BFF" />
-                    <Text style={styles.detailValue}>{item.whatsapp_no || 'N/A'}</Text>
+                    <MaterialIcons name="work" size={20} color="#007BFF" />
+                    <Text style={styles.detailValue}>{item.primary_details ? item.primary_details.Job_Type : 'N/A'}</Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <MaterialIcons name="timer" size={20} color="#007BFF" />
+                    <Text style={styles.detailValue}>{item.primary_details ? item.primary_details.Experience : 'N/A'}</Text>
                   </View>
                 </View>
-              </View>
+              </Animated.View>
             </TouchableOpacity>
           )}
         />
@@ -143,10 +174,14 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 3,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
   image: {
     width: '100%',
     height: 150,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   },
   cardContent: {
     padding: 15,
@@ -154,7 +189,7 @@ const styles = StyleSheet.create({
   jobTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#333',
+    color: 'black',
     marginBottom: 10,
   },
   detailRow: {
@@ -164,7 +199,7 @@ const styles = StyleSheet.create({
   },
   detailValue: {
     fontSize: 16,
-    color: '#555',
+    color: 'black',
     marginLeft: 8,
   },
   errorText: {
@@ -172,6 +207,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 20,
     fontSize: 16,
+  },
+  header: {
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  headerBackground: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
+    backgroundColor: '#4c669f',
+  },
+  headerTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
   },
 });
 

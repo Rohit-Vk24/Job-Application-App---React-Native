@@ -7,7 +7,7 @@ import JobsScreen from './screens/JobsScreen';
 import BookmarksScreen from './screens/BookmarksScreen';
 import JobDetailsScreen from './screens/JobDetailsScreen';
 import { BookmarkProvider } from './context/BookmarkContext';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
