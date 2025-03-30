@@ -1,7 +1,6 @@
 # Job Application App - React Native
 
-<<<<<<< HEAD
-=======
+
 App demo => [https://drive.google.com/file/d/1cjBVHz1mR47BUZUhhbXhF4Rfja7DzLlj/view?usp=sharing](https://drive.google.com/file/d/15Qr4uAFUsQFYU6VU_rRqkNdJ5Y2jfcgJ/view?usp=sharing)
 
 ## Overview
