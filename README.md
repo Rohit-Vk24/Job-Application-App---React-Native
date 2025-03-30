@@ -60,9 +60,4 @@ This is a React Native application designed to help users browse and bookmark jo
 
 Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
 
-## License
 
-This project is licensed under the MIT License. 
-=======
-This project is licensed under the MIT License. 
->>>>>>> 83d08993d45664f16a9c5fa6879f61eb66a5e53a
