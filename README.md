@@ -2,9 +2,8 @@
 
 <<<<<<< HEAD
 =======
-App demo => https://drive.google.com/file/d/1cjBVHz1mR47BUZUhhbXhF4Rfja7DzLlj/view?usp=sharing
+App demo => [https://drive.google.com/file/d/1cjBVHz1mR47BUZUhhbXhF4Rfja7DzLlj/view?usp=sharing](https://drive.google.com/file/d/15Qr4uAFUsQFYU6VU_rRqkNdJ5Y2jfcgJ/view?usp=sharing)
 
->>>>>>> 83d08993d45664f16a9c5fa6879f61eb66a5e53a
 ## Overview
 
 This is a React Native application designed to help users browse and bookmark job listings. The app fetches job data from an API and allows users to view job details and manage their bookmarks.
@@ -64,7 +63,6 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 
 ## License
 
-<<<<<<< HEAD
 This project is licensed under the MIT License. 
 =======
 This project is licensed under the MIT License. 
